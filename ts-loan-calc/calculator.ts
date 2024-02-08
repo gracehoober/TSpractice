@@ -65,3 +65,4 @@ function start(): void {
     getFormValuesAndDisplayResults();
   });
 }
+//TODO: why does the callback function in the eventlistener not have a "void" type
