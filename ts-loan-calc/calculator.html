@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Loan Calculator</title>
+  <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+
+<h1>Loan Calculator 💰💲💵</h1>
+
+<main class="calc-container">
+  <form id="calc-form">
+    <label>
+      Loan Amount
+      <input id="loan-amount">
+    </label>
+    <label>
+      Term in Years
+      <input id="loan-years">
+    </label>
+    <label>
+      Yearly Rate
+      <input id="loan-rate">
+    </label>
+    <button type="submit" id="calc-submit">Calculate</button>
+  </form>
+
+  <section class="calc-results">
+    <h3>Monthly Payment</h3>
+    <span id="calc-monthly-payment"><!-- results put here in JS --></span>
+  </section>
+</main>
+
+<script src="calculator.js"></script>
+<script>start()</script>
+
+</body>
+</html>

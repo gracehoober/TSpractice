@@ -1,0 +1,91 @@
+body {
+  margin: 40px 14% 14%;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+h1 {
+  font-size: 2.5em;
+  color: grey;
+}
+
+
+/** Styles for calculator */
+
+.calc-container {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(211, 211, 211);
+  font-size: 1.4em;
+}
+
+.calc-container form {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid darkgrey;
+  flex: 1;
+  padding: 10px;
+}
+
+.calc-container form label {
+  padding: 10px;
+  font-size: 1.3em;
+}
+
+.calc-container input {
+  border-radius: 30px;
+  padding: 3px 3px 3px 10px;
+  font-size: 1.3em;
+}
+
+.calc-container button {
+  font-size: 2em;
+  border-radius: 30px;
+  background-color: rgb(150, 150, 150);
+  color: white;
+  max-width: 300px;
+  min-width: 230px;
+  border: 3px solid black;
+  align-self: center;
+  cursor: pointer;
+  box-shadow: #666 3px 3px 5px;
+}
+
+.calc-container button:hover {
+  background-color: rgb(100, 100, 100);
+  box-shadow: #333 3px 3px 5px;
+}
+
+.calc-container .calc-results {
+  flex: 1;
+  border: 2px solid darkgrey;
+  padding-left: 25px;
+}
+
+.calc-container h3 {
+  font-size: 1.25em;
+}
+
+#calc-monthly-payment {
+  font-size: 4em;
+}
+
+/** Media queries to change appearance on small devices, like cell phones */
+
+@media screen and (max-width: 900px) {
+  body {
+    margin: 5%;
+    font-size: .9em;
+
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .calc-container {
+    font-size: .9em;
+  }
+
+  input {
+    font-size: .9em;
+    padding: 1px;
+  }
+}
