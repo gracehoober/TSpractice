@@ -4,6 +4,7 @@ const calcForm = document.getElementById("calc-form") as HTMLFormElement;
 const amountInput = document.getElementById("loan-amount") as HTMLInputElement;
 const yearsInput = document.getElementById("loan-years") as HTMLInputElement;
 const rateInput = document.getElementById("loan-rate") as HTMLInputElement;
+const reset = document.getElementById("reset-page") as HTMLButtonElement;
 const resultArea = document.getElementById("calc-monthly-payment") as HTMLSpanElement;
 //TODO: in solution the bang operator is used fofr resultArea instead of HTMLSpan element. Why?
 
@@ -66,3 +67,14 @@ function start(): void {
   });
 }
 //TODO: why does the callback function in the eventlistener not have a "void" type
+
+/** Resets form to default */
+function clearFormFeilds(): void {
+  calcForm.reset();
+  resultArea.innerHTML = "";
+}
+
+reset.addEventListener("click", function (evt): void {
+  evt.preventDefault();
+  clearFormFeilds();
+});
