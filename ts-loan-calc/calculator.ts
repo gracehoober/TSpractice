@@ -6,7 +6,7 @@ const yearsInput = document.getElementById("loan-years") as HTMLInputElement;
 const rateInput = document.getElementById("loan-rate") as HTMLInputElement;
 const reset = document.getElementById("reset-page") as HTMLButtonElement;
 const resultArea = document.getElementById("calc-monthly-payment") as HTMLSpanElement;
-//TODO: in solution the bang operator is used fofr resultArea instead of HTMLSpan element. Why?
+
 
 const resultHistory: { amount: number; years: number; rate: number; payment: number; }[] = [];
 /** Retrieve form values.
@@ -15,13 +15,34 @@ const resultHistory: { amount: number; years: number; rate: number; payment: num
  *
  * */
 
-function getFormValues(): { amount: number; years: number; rate: number; } {
-  return {
-    amount: Number(amountInput.value),
-    years: Number(yearsInput.value),
-    rate: Number(rateInput.value),
-  };
+function getFormValues(): {
+  amount: number | string; years: number | string; rate: number | string;
+} | void {
 
+  let amount = Number(amountInput.value);
+  let years = Number(yearsInput.value);
+  let rate = Number(rateInput.value);
+
+  if (checkFormValues([amount, years, rate]) === true) {
+    return {
+      amount: amount,
+      years: years,
+      rate: rate,
+    };
+  }
+  resultArea.innerText = "Inputs must be numbers";
+}
+
+/** Takes the form input data and returns true if all values are valid numbers,
+ * else returns false
+ */
+function checkFormValues(data: string|number[]): boolean {
+  for(let value of data){
+    if(isNaN(value) === true){
+      return false
+    }
+  }
+  return true
 }
 
 /** Calculate monthly payment and return. */
