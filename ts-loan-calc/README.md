@@ -9,5 +9,8 @@ Simple loan calculator application built in TypeScript.
 * Includes error handling if invalid numbers are entered into input feilds. Notifies user of invalid data.
 
 ## Instructions:
-* Clone repository
+* Clone repository with `git clone https://github.com/gracehoober/TSpractice.git`
+* Enter respository with `cd TSpractice/ts-loan-calc`
+* Open code files in editor of your choice and run calculator.html in the browser.
+
 
