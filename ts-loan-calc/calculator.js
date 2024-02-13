@@ -16,26 +16,29 @@ function getFormValues() {
     let amount = Number(amountInput.value);
     let years = Number(yearsInput.value);
     let rate = Number(rateInput.value);
-    if (checkFormValues([amount, years, rate]) === true) {
+    if (typeof amount === "number" && typeof years === "number" && typeof rate === "number") {
         return {
             amount: amount,
             years: years,
             rate: rate,
         };
     }
-    resultArea.innerText = "Inputs must be numbers";
+    else {
+        throw new Error("Inputs must be numbers");
+        //return undefined
+    }
 }
 /** Takes the form input data and returns true if all values are valid numbers,
  * else returns false
  */
-function checkFormValues(data) {
-    for (let value of data) {
-        if (isNaN(value) === true) {
-            return false;
-        }
-    }
-    return true;
-}
+// function isNumber(data: string | number[]): boolean {
+//   for (let value of data) {
+//     if (isNaN(Number(value))) {
+//       return false;
+//     }
+//   }
+//   return true;
+// }
 /** Calculate monthly payment and return. */
 function calcMonthlyPayment({ amount, years, rate }) {
     const monthsInYear = 12;

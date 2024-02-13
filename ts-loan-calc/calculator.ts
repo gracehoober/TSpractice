@@ -16,34 +16,37 @@ const resultHistory: { amount: number; years: number; rate: number; payment: num
  * */
 
 function getFormValues(): {
-  amount: number | string; years: number | string; rate: number | string;
-} | void {
+  amount: number; years: number; rate: number;
+} {
 
   let amount = Number(amountInput.value);
   let years = Number(yearsInput.value);
   let rate = Number(rateInput.value);
 
-  if (checkFormValues([amount, years, rate]) === true) {
+  if (typeof amount === "number" && typeof years === "number" && typeof rate === "number"){
     return {
       amount: amount,
       years: years,
       rate: rate,
     };
+  }else {
+    throw new Error("Inputs must be numbers")
+    //return undefined
   }
-  resultArea.innerText = "Inputs must be numbers";
+
 }
 
 /** Takes the form input data and returns true if all values are valid numbers,
  * else returns false
  */
-function checkFormValues(data: string|number[]): boolean {
-  for(let value of data){
-    if(isNaN(value) === true){
-      return false
-    }
-  }
-  return true
-}
+// function isNumber(data: string | number[]): boolean {
+//   for (let value of data) {
+//     if (isNaN(Number(value))) {
+//       return false;
+//     }
+//   }
+//   return true;
+// }
 
 /** Calculate monthly payment and return. */
 
@@ -62,10 +65,11 @@ function calcMonthlyPayment(
 /** Get form values, calculate, format to 2 decimal places, and display. */
 
 function getFormValuesAndDisplayResults(): void {
-  const { amount, years, rate } = getFormValues();
-  const payment = calcMonthlyPayment({ amount, years, rate });
-  resultHistory.push({ amount, years, rate, payment });
-  resultArea.innerText = "$" + payment.toFixed(2);
+    const { amount, years, rate } = getFormValues();
+    const payment = calcMonthlyPayment({ amount, years, rate });
+    resultHistory.push({ amount, years, rate, payment });
+    resultArea.innerText = "$" + payment.toFixed(2);
+
 }
 
 /** Set initial form values and show initial results. Called at app start. */
