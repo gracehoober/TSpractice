@@ -12,11 +12,13 @@ const resultHistory = [];
  * Example output: an object like {"amount": 10000, "years": 10, "rate": 4.5}.
  *
  * */
-function getFormValues() {
+//FIXME: if 0 is entered to years -> infinity, if 0 is entered to yearly rate -> NaN
+function getFormValuesAndValidate() {
     let amount = Number(amountInput.value);
     let years = Number(yearsInput.value);
     let rate = Number(rateInput.value);
-    if (typeof amount === "number" && typeof years === "number" && typeof rate === "number") {
+    let checkInputTypes = areNums([amount, years, rate]);
+    if (checkInputTypes === true) {
         return {
             amount: amount,
             years: years,
@@ -25,20 +27,19 @@ function getFormValues() {
     }
     else {
         throw new Error("Inputs must be numbers");
-        //return undefined
     }
 }
 /** Takes the form input data and returns true if all values are valid numbers,
  * else returns false
  */
-// function isNumber(data: string | number[]): boolean {
-//   for (let value of data) {
-//     if (isNaN(Number(value))) {
-//       return false;
-//     }
-//   }
-//   return true;
-// }
+function areNums(data) {
+    for (let value of data) {
+        if (isNaN(Number(value))) {
+            return false;
+        }
+    }
+    return true;
+}
 /** Calculate monthly payment and return. */
 function calcMonthlyPayment({ amount, years, rate }) {
     const monthsInYear = 12;
@@ -49,10 +50,15 @@ function calcMonthlyPayment({ amount, years, rate }) {
 }
 /** Get form values, calculate, format to 2 decimal places, and display. */
 function getFormValuesAndDisplayResults() {
-    const { amount, years, rate } = getFormValues();
-    const payment = calcMonthlyPayment({ amount, years, rate });
-    resultHistory.push({ amount, years, rate, payment });
-    resultArea.innerText = "$" + payment.toFixed(2);
+    try {
+        const { amount, years, rate } = getFormValuesAndValidate();
+        const payment = calcMonthlyPayment({ amount, years, rate });
+        resultHistory.push({ amount, years, rate, payment });
+        resultArea.innerText = "$" + payment.toFixed(2);
+    }
+    catch (error) {
+        resultArea.innerText = "Please enter valid numbers";
+    }
 }
 /** Set initial form values and show initial results. Called at app start. */
 function setInitialValues() {

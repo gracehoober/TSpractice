@@ -14,8 +14,9 @@ const resultHistory: { amount: number; years: number; rate: number; payment: num
  * Example output: an object like {"amount": 10000, "years": 10, "rate": 4.5}.
  *
  * */
+//FIXME: if 0 is entered to years -> infinity, if 0 is entered to yearly rate -> NaN
 
-function getFormValues(): {
+function getFormValuesAndValidate(): {
   amount: number; years: number; rate: number;
 } {
 
@@ -23,15 +24,15 @@ function getFormValues(): {
   let years = Number(yearsInput.value);
   let rate = Number(rateInput.value);
 
-  if (typeof amount === "number" && typeof years === "number" && typeof rate === "number"){
+  let checkInputTypes = areNums([amount, years, rate])
+  if (checkInputTypes === true) {
     return {
       amount: amount,
       years: years,
       rate: rate,
     };
-  }else {
-    throw new Error("Inputs must be numbers")
-    //return undefined
+  } else {
+    throw new Error("Inputs must be numbers");
   }
 
 }
@@ -39,14 +40,14 @@ function getFormValues(): {
 /** Takes the form input data and returns true if all values are valid numbers,
  * else returns false
  */
-// function isNumber(data: string | number[]): boolean {
-//   for (let value of data) {
-//     if (isNaN(Number(value))) {
-//       return false;
-//     }
-//   }
-//   return true;
-// }
+function areNums(data: number[]): boolean {
+  for (let value of data) {
+    if (isNaN(Number(value))) {
+      return false;
+    }
+  }
+  return true;
+}
 
 /** Calculate monthly payment and return. */
 
@@ -63,12 +64,16 @@ function calcMonthlyPayment(
 }
 
 /** Get form values, calculate, format to 2 decimal places, and display. */
-
 function getFormValuesAndDisplayResults(): void {
-    const { amount, years, rate } = getFormValues();
+  try {
+    const { amount, years, rate } = getFormValuesAndValidate();
     const payment = calcMonthlyPayment({ amount, years, rate });
     resultHistory.push({ amount, years, rate, payment });
     resultArea.innerText = "$" + payment.toFixed(2);
+
+  } catch (error) {
+    resultArea.innerText = "Please enter valid numbers"
+  }
 
 }
 
