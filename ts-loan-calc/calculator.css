@@ -58,6 +58,7 @@ h1 {
 .calc-container .calc-results {
   flex: 1;
   border: 2px solid darkgrey;
+  background-color: rgb(211, 211, 211);
   padding-left: 25px;
 }
 
@@ -66,7 +67,7 @@ h1 {
 }
 
 #calc-monthly-payment {
-  font-size: 4em;
+  font-size: 3em;
 }
 
 /** Media queries to change appearance on small devices, like cell phones */
